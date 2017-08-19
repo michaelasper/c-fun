@@ -21,7 +21,7 @@ vector<string> LoadWords(string filename){
 }
 
 void PrintStage(int wordLength){
-    vector<string> stage = {"|----", "|   o", "|   T","|   ʌ"};
+    vector<string> stage = {"|----", "|    ", "|   ","|   "};
     for(auto &line: stage){
         cout << line << endl;
     }
