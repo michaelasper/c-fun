@@ -1,5 +1,7 @@
 namespace blackjack
 {
+    int randomNumber(int i);
+
     class Game
     {
         public:

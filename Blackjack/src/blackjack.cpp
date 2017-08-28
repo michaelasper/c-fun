@@ -1,12 +1,17 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <ctime> 
+#include <cstdlib>
+
 #include "blackjack.h"
 
 namespace blackjack
 {
-   
-    
-
+   int randomNumber(int i){
+       std::srand ( unsigned ( std::time(0) ) );
+       return std::rand() % i;
+   }
 
     void Game::Deck::Card::PrintCard(){
         if(number > 10 || number == 1){
@@ -46,15 +51,20 @@ namespace blackjack
 
     void Game::Deck::Shuffle()
     {
+        
+        std::random_shuffle(std::begin(deckList),std::end(deckList), randomNumber);
     }
 
     void Game::Deck::PrintDeck()
     {
         for (int i = 0; i < 52; ++i)
         {
+            if(i % 13 == 0 && i > 0) std::cout << std::endl;
             deckList[i]->PrintCard();
-            std::cout << std::endl;
+            std::cout << " ";
+            
         }
+        std::cout << std::endl;
     }
 
     Game::Game()
@@ -64,6 +74,8 @@ namespace blackjack
     void Game::Run()
     {
         Deck *deck = new Deck();
+        deck->PrintDeck();
+        deck->Shuffle();
         deck->PrintDeck();
     }
 
