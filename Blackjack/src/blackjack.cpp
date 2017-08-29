@@ -4,6 +4,7 @@
 #include <ctime> 
 #include <cstdlib>
 #include <vector>
+#include <deque>
 
 #include "blackjack.h"
 
@@ -51,18 +52,18 @@ namespace blackjack
         }
     }
 
-    void Game::Deck::Shuffle()
+    void Game::Deck::Shuffle(int i)
     {
-        
-        std::random_shuffle(std::begin(deckList),std::end(deckList), randomNumber);
+        for(int x = 0; x < i; ++x){
+            std::random_shuffle(std::begin(deckList),std::end(deckList), randomNumber);
+        }
     }
 
     void Game::Deck::PrintDeck()
     {
-        for (int i = 0; i < 52; ++i)
+        for (auto &card: deckList)
         {
-            if(i % 13 == 0 && i > 0) std::cout << std::endl;
-            deckList[i]->PrintCard();
+            card->PrintCard();
             std::cout << " ";
             
         }
@@ -70,7 +71,9 @@ namespace blackjack
     }
 
     Game::Card* Game::Deck::Draw(){
-        return deckList[0];
+        Card *card = deckList[0];
+        deckList.pop_front();
+        return card;
     }
 
     Game::Game()
@@ -87,7 +90,11 @@ namespace blackjack
     }
 
     void Game::Player::ShowHand(){
-        hand[0]->PrintCard();
+        for(auto &card: hand){
+            card->PrintCard();
+            std::cout<<" ";
+        }
+        
         std::cout << std::endl;
 
     }
@@ -95,10 +102,18 @@ namespace blackjack
     void Game::Run()
     {
         Deck *deck = new Deck();
-        deck->Shuffle();
+        deck->Shuffle(5);
         Player *player = new Player();
         player->Action(deck);
+        player->Action(deck);
+        player->Action(deck);
+        player->Action(deck);
+        player->Action(deck);
         player->ShowHand();
+        deck->PrintDeck();
+        player->Action(deck);
+        player->ShowHand();
+
     }
 
     int Game::Main(int argc, const char **argv)

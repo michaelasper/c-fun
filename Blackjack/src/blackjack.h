@@ -1,5 +1,5 @@
 #include <vector>
-
+#include <deque>
 
 namespace blackjack
 {
@@ -27,12 +27,12 @@ namespace blackjack
             class Deck{
                 private:
                     //TODO change std::vector to std::deque
-                    std::vector < Card* > deckList;
+                    std::deque < Card* > deckList;
                     std::string faceList[4] = {"♣️","♥️","♠️","♦️"};
 
                 public:
                     Deck();
-                    void Shuffle();
+                    void Shuffle(int i);
                     void PrintDeck();
                     Card* Draw();
                 
