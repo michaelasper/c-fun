@@ -28,7 +28,7 @@ namespace blackjack
                 private:
                     //TODO change std::vector to std::deque
                     std::vector < Card* > deckList;
-                    std::string faceList[4] = {"♣️","❤","♠️","♦️"};
+                    std::string faceList[4] = {"♣️","♥️","♠️","♦️"};
 
                 public:
                     Deck();
