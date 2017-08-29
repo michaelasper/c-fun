@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <ctime> 
 #include <cstdlib>
+#include <vector>
 
 #include "blackjack.h"
 
@@ -13,7 +14,7 @@ namespace blackjack
        return std::rand() % i;
    }
 
-    void Game::Deck::Card::PrintCard(){
+    void Game::Card::PrintCard(){
         if(number > 10 || number == 1){
             switch(number){
                 case 1:
@@ -44,7 +45,8 @@ namespace blackjack
         {
             for (int j = 0; j < 13; ++j)
             {
-                deckList[(i * 13) + j] = new Deck::Card(j + 1, faceList[i]);
+                //deckList[(i * 13) + j] = new Deck::Card(j + 1, faceList[i]);
+                 deckList.push_back(new Card(j + 1, faceList[i]));
             }
         }
     }
@@ -67,16 +69,36 @@ namespace blackjack
         std::cout << std::endl;
     }
 
+    Game::Card* Game::Deck::Draw(){
+        return deckList[0];
+    }
+
     Game::Game()
     {
+    }
+
+    Game::Player::Player(){
+
+    }
+
+    void Game::Player::Action(Deck* deck){
+        hand.push_back(deck->Draw());
+
+    }
+
+    void Game::Player::ShowHand(){
+        hand[0]->PrintCard();
+        std::cout << std::endl;
+
     }
 
     void Game::Run()
     {
         Deck *deck = new Deck();
-        deck->PrintDeck();
         deck->Shuffle();
-        deck->PrintDeck();
+        Player *player = new Player();
+        player->Action(deck);
+        player->ShowHand();
     }
 
     int Game::Main(int argc, const char **argv)

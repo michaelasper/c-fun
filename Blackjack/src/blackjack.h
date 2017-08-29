@@ -1,3 +1,6 @@
+#include <vector>
+
+
 namespace blackjack
 {
     int randomNumber(int i);
@@ -10,25 +13,37 @@ namespace blackjack
 
         private:
             void Run();
+            class Card{
+                private:
+                    int number;
+                    std::string face;
+                public:
+                    Card();
+                    Card(int number, std::string face): number(number), face(face) {}
+                    void PrintCard();  
+
+            };
+
             class Deck{
+                private:
+                    //TODO change std::vector to std::deque
+                    std::vector < Card* > deckList;
+                    std::string faceList[4] = {"♣️","❤","♠️","♦️"};
+
                 public:
                     Deck();
                     void Shuffle();
                     void PrintDeck();
-
+                    Card* Draw();
+                
+            };
+            class Player{
+                public:
+                    Player();
+                    void Action(Deck* deck);
+                    void ShowHand();
                 private:
-                    class Card{
-                        private:
-                            int number;
-                            std::string face;
-                        public:
-                            Card();
-                            Card(int number, std::string face): number(number), face(face) {}
-                            void PrintCard();
-                            
-                    };
-                    Card* deckList[52];
-                    std::string faceList[4] = {"♣️","❤","♠️","♦️"};
+                    std::vector< Card* > hand;
             };
     };
 }
