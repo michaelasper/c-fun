@@ -1,2 +1,2 @@
 # c-fun
-misc. projects learning c++
+misc. projects learning c++ by me
